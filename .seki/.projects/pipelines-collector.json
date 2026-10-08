@@ -1,0 +1,22 @@
+{
+  "name": "pipelines-collector",
+  "description": "Job that run every 10 minutes save pipelines in a history db and clear the pipelines from the main db.",
+  "settings": {
+    "schedule": "*/10 * * * *",
+    "concurrencyPolicy": "Forbid"
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/cronjob/schema.json",
+  "group_folder": "apps",
+  "path": "pipelines-collector",
+  "kind": "cronjob",
+  "definition": {
+    "name": "Cron Job",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Pipelines Collector",
+  "order": 5
+}

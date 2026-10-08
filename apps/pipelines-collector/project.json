@@ -1,0 +1,113 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pipelines-collector/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "release",
+      "options": {
+        "outputPath": "dist/apps/pipelines-collector",
+        "main": "apps/pipelines-collector/src/main.ts",
+        "tsConfig": "apps/pipelines-collector/tsconfig.app.json",
+        "assets": [
+          "apps/pipelines-collector/src/config"
+        ],
+        "webpackConfig": [
+          "apps/pipelines-collector/webpack.js"
+        ]
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "inspect": true
+        },
+        "release": {
+          "optimization": true,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pipelines-collector:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pipelines-collector:build:development"
+        },
+        "release": {
+          "buildTarget": "pipelines-collector:build:release",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/pipelines-collector/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/pipelines-collector"
+      ],
+      "options": {
+        "jestConfig": "apps/pipelines-collector/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "secrets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "seki secrets generate -p=pipelines-collector",
+        "cwd": "."
+      }
+    }
+  },
+  "tags": [
+    "REQUIRED:GOLDEN"
+  ]
+}

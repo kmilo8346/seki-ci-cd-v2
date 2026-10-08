@@ -1,0 +1,76 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:14.0
+    command: |
+      /bin/bash -c "
+        echo '
+            CREATE DATABASE commits;
+          ' > /docker-entrypoint-initdb.d/init.sql &&
+        docker-entrypoint.sh postgres
+      "
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+  pgadmin:
+    image: dpage/pgadmin4:7.8
+    user: root
+    depends_on:
+      - postgres
+    ports:
+      - '9001:80'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    entrypoint: >
+      /bin/sh -c ' echo "postgres:5432:*:postgres:postgres" > /tmp/pgpass; chmod
+      600 /tmp/pgpass; echo
+      "{\"Servers\":{\"1\":{\"Name\":\"local\",\"Group\":\"Servers\",\"Host\":\"postgres\",\"Port\":5432,\"MaintenanceDB\":\"postgres\",\"Username\":\"postgres\",\"PassFile\":\"/tmp/pgpass\",\"SSLMode\":\"prefer\"}}}"
+      > /pgadmin4/servers.json; /entrypoint.sh '
+  kafka:
+    image: docker.redpanda.com/vectorized/redpanda:v21.11.15
+    ports:
+      - '8081:8081'
+      - '8082:8082'
+      - '9092:9092'
+      - '28082:28082'
+      - '29092:29092'
+    command:
+      - redpanda
+      - start
+      - '--smp'
+      - '1'
+      - '--reserve-memory'
+      - 0M
+      - '--overprovisioned'
+      - '--node-id'
+      - '0'
+      - '--kafka-addr'
+      - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - '--advertise-kafka-addr'
+      - PLAINTEXT://kafka:29092,OUTSIDE://localhost:9092
+      - '--pandaproxy-addr'
+      - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+      - '--advertise-pandaproxy-addr'
+      - PLAINTEXT://kafka:28082,OUTSIDE://localhost:8082
+  redpanda-console:
+    image: docker.redpanda.com/redpandadata/console:latest
+    ports:
+      - '9002:8080'
+    environment:
+      KAFKA_BROKERS: kafka:29092
+    depends_on:
+      - kafka
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+  redis:
+    image: redis:7.0.5
+    ports:
+      - '6379:6379'

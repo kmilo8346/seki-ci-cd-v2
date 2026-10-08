@@ -1,0 +1,30 @@
+{
+  "name": "pending-tasks-dispatcher",
+  "description": "Cronjob that dispatch the pendings taks from pipelines and dispatch to control plane for starting the runners that executes that specific task <br/><br/> <b>NOTE</b>: This api works like a `cronjob` (can be only one)",
+  "settings": {
+    "internal": true,
+    "port": 8083,
+    "stages": {
+      "staging": {
+        "replicas": 1
+      },
+      "production": {
+        "replicas": 1
+      }
+    }
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/api/schema.json",
+  "group_folder": "apps",
+  "path": "pendings-tasks-dispatcher",
+  "kind": "api",
+  "definition": {
+    "name": "Api",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Tasks Dispatcher",
+  "order": 3
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Cencosud-X/seki-schemas/main/v1/secrets/configrc.schema.json",
+  "secrets": {
+    "includes": [
+      "PRODUCT_NAME",
+      "TOPIC_COMMIT_CREATED",
+      "GITHUB_API_URL",
+      "GITHUB_API_TIMEOUT",
+      "COMMIT_TO_TASK_SERVER_PORT"
+    ]
+  },
+  "files": {
+    "includes": ["github_organizations.json"]
+  }
+}

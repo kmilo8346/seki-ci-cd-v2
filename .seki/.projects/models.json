@@ -1,0 +1,21 @@
+{
+  "name": "models",
+  "description": "Shared models between projects (zod)",
+  "settings": {
+    "buildable": true,
+    "publishable": false
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/library/schema.json",
+  "group_folder": "libs",
+  "path": "models",
+  "kind": "library",
+  "definition": {
+    "name": "Library",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Models"
+}

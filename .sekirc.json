@@ -1,0 +1,7 @@
+{
+  "name": "seki-ci-cd-v2",
+  "description": "New Seki CI / CD to enhance the interaction beetwen multiples tenants",
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-schemas/main/v1/sekirc.schema.json",
+  "display_name": "Seki CI / CD (v2)",
+  "version": 4
+}

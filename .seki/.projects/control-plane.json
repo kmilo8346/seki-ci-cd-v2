@@ -1,0 +1,30 @@
+{
+  "name": "control-plane",
+  "description": "This api redirect and manage the runners isolated from each context that resides. The control plane manage the starting of runner and his rate limits, enforcing the boundaries between Seki Core and Compute Power from the cluster itself",
+  "settings": {
+    "internal": false,
+    "port": 8082,
+    "stages": {
+      "staging": {
+        "replicas": 3
+      },
+      "production": {
+        "replicas": 2
+      }
+    }
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/api/schema.json",
+  "group_folder": "apps",
+  "path": "control-plane",
+  "kind": "api",
+  "definition": {
+    "name": "Api",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Control Plane",
+  "order": 4
+}

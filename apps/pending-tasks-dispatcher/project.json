@@ -1,0 +1,99 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/pending-tasks-dispatcher/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "release",
+      "options": {
+        "outputPath": "dist/apps/pending-tasks-dispatcher",
+        "main": "apps/pending-tasks-dispatcher/src/main.ts",
+        "tsConfig": "apps/pending-tasks-dispatcher/tsconfig.app.json",
+        "assets": ["apps/pending-tasks-dispatcher/src/config"],
+        "webpackConfig": ["apps/pending-tasks-dispatcher/webpack.js"]
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "inspect": true
+        },
+        "release": {
+          "optimization": true,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "pending-tasks-dispatcher:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "pending-tasks-dispatcher:build:development"
+        },
+        "release": {
+          "buildTarget": "pending-tasks-dispatcher:build:release",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/pending-tasks-dispatcher/**/*.ts"]
+      }
+    },
+    "test": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/pending-tasks-dispatcher"],
+      "options": {
+        "jestConfig": "apps/pending-tasks-dispatcher/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "secrets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "seki secrets generate -p=pending-tasks-dispatcher",
+        "cwd": "."
+      }
+    }
+  },
+  "tags": ["REQUIRED:GOLDEN"]
+}

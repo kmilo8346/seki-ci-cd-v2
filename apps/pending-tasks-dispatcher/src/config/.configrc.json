@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Cencosud-X/seki-schemas/main/v1/secrets/configrc.schema.json",
+  "secrets": {
+    "includes": [
+      "PRODUCT_NAME",
+      "PENDING_TASKS_DISPATCHER_SERVER_PORT",
+      "PIPELINER_REQUEST_URL",
+      "ORGANIZATION_CLUSTER_API_KEY",
+      "CONTROL_PLANE_REQUEST_URL",
+      "CONTROL_PLANE_REQUEST_API_KEY",
+      "ORGANIZATION_CLUSTER_API_KEY"
+    ]
+  },
+  "files": {
+    "includes": [
+      "iam_public_key.pub"
+    ]
+  }
+}

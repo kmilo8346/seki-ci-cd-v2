@@ -1,0 +1,53 @@
+{
+  "folders": [
+    {
+      "name": "📚 Docs",
+      "path": "./docs"
+    },
+    {
+      "name": "⛩ Pipelinr",
+      "path": "./apps/pipelinr/src"
+    },
+    {
+      "name": "🏗 Commit to Tasks",
+      "path": "./apps/commit-to-tasks/src"
+    },
+    {
+      "name": "🗼 Control Plane",
+      "path": "./apps/control-plane/src"
+    },
+    {
+      "name": "📤 Pending Tasks Dispatcher",
+      "path": "./apps/pending-tasks-dispatcher/src"
+    },
+    {
+      "name": "👷 Pipelines Collector",
+      "path": "./apps/pipelines-collector/src"
+    },
+    {
+      "name": "Models",
+      "path": "./libs/models/src"
+    },
+    {
+      "name": "Core",
+      "path": "./libs/core/src"
+    },
+    {
+      "name": "Monorepo",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "eslint.format.enable": true,
+    "terminal.integrated.cwd": "${workspaceFolder:Monorepo}",
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "[typescript]": {
+      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    }
+  }
+}
+
+

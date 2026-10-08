@@ -1,0 +1,15 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Cencosud-X/seki-schemas/main/v1/secrets/configrc.schema.json",
+  "secrets": {
+    "includes": [
+      "PRODUCT_NAME",
+      "PIPELINR_SERVER_PORT",
+      "TOPIC_COMMIT_CREATED"
+    ]
+  },
+  "files": {
+    "includes": [
+      "iam_public_key.pub"
+    ]
+  }
+}

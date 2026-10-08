@@ -1,0 +1,20 @@
+{
+  "kind": "mongodb",
+  "identifier": "default",
+  "properties": {
+    "databases": [
+      "history"
+    ]
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/mongodb/schema.json",
+  "definition": {
+    "icons": {
+      "light": "icons/icon-white.svg",
+      "dark": "icons/icon.svg"
+    },
+    "name": "Proyecto de MongoDB",
+    "short_description": "Colección NoSQL",
+    "url": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/mongodb"
+  },
+  "output": "settings.json"
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "commit-to-tasks": "apps/commit-to-tasks",
+    "control-plane": "apps/control-plane",
+    "core": "libs/core",
+    "models": "libs/models",
+    "pending-tasks-dispatcher": "apps/pending-tasks-dispatcher",
+    "pipelines-collector": "apps/pipelines-collector",
+    "pipelinr": "apps/pipelinr"
+  }
+}

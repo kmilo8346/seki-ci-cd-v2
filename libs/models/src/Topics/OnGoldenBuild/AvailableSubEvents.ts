@@ -1,0 +1,1 @@
+export type AvailableSubEvents = "BS|GOLDEN_DEPENDENCIES"

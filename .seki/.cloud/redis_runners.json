@@ -1,0 +1,18 @@
+{
+  "kind": "redis",
+  "identifier": "runners",
+  "properties": {
+    "memory_size_gb": 1
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/redis/schema.json",
+  "definition": {
+    "icons": {
+      "light": "icons/icon-white.svg",
+      "dark": "icons/icon.svg"
+    },
+    "name": "Redis",
+    "short_description": "Base de datos en memoria",
+    "url": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/redis"
+  },
+  "output": "settings.json"
+}

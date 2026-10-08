@@ -1,0 +1,21 @@
+FROM node:16.18.0
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends wget ca-certificates curl zip unzip openssl libdigest-sha-perl
+
+COPY ./ .
+
+# Set monorepo config from docker/config
+# That config is adapted to docker compose network environment
+RUN cp ./docker/config/* ./config
+RUN mkdir -p -m 775 /usr/local/bin
+RUN cp ./docker/seki /usr/local/bin
+RUN chmod 755 /usr/local/bin/seki;
+RUN /usr/local/bin/seki --version
+
+RUN npm install --from-lock-file
+
+EXPOSE 9001
+
+CMD ["npx", "nx", "run", "commit-to-tasks:serve"]

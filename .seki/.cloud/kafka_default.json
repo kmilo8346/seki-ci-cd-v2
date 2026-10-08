@@ -1,0 +1,22 @@
+{
+  "kind": "kafka",
+  "identifier": "default",
+  "properties": {
+    "topics": [
+      {
+        "name": "gl.seki.commit.created.v1"
+      }
+    ]
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/kafka/schema.json",
+  "definition": {
+    "icons": {
+      "light": "icons/icon-white.svg",
+      "dark": "icons/icon.svg"
+    },
+    "name": "Kafka",
+    "short_description": "Cola de mensajes",
+    "url": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/kafka"
+  },
+  "output": "settings.json"
+}

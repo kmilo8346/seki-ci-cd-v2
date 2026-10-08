@@ -1,0 +1,30 @@
+{
+  "name": "pipelinr",
+  "description": "Api that captures incoming commit catcher from a git webhook push events, and put into a Queue for later processing due the work pressure.\n\nAlso work as a unique point to get all information about pipelines and tasks",
+  "settings": {
+    "internal": false,
+    "port": 8085,
+    "stages": {
+      "staging": {
+        "replicas": 1
+      },
+      "production": {
+        "replicas": 3
+      }
+    }
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/api/schema.json",
+  "group_folder": "apps",
+  "path": "pipelinr",
+  "kind": "api",
+  "definition": {
+    "name": "Api",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Pipelinr",
+  "order": 1
+}

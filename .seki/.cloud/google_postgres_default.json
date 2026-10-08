@@ -1,0 +1,20 @@
+{
+  "kind": "google_postgres",
+  "identifier": "default",
+  "properties": {
+    "databases": [
+      "commits"
+    ]
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/google_postgres/schema.json",
+  "definition": {
+    "icons": {
+      "light": "icons/icon-white.svg",
+      "dark": "icons/icon.svg"
+    },
+    "name": "Servidor de PostgreSQL",
+    "short_description": "Instancia de PostgreSQL",
+    "url": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-cloud-components/main/google_postgres"
+  },
+  "output": "settings.json"
+}

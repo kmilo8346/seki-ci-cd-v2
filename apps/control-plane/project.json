@@ -1,0 +1,99 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/control-plane/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "release",
+      "options": {
+        "outputPath": "dist/apps/control-plane",
+        "main": "apps/control-plane/src/main.ts",
+        "tsConfig": "apps/control-plane/tsconfig.app.json",
+        "assets": ["apps/control-plane/src/config"],
+        "webpackConfig": ["apps/control-plane/webpack.js"]
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true,
+          "inspect": true
+        },
+        "release": {
+          "optimization": true,
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": true,
+          "inspect": false
+        }
+      }
+    },
+    "serve": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/node:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "control-plane:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "control-plane:build:development"
+        },
+        "release": {
+          "buildTarget": "control-plane:build:release",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/control-plane/**/*.ts"]
+      }
+    },
+    "test": {
+      "dependsOn": [
+        {
+          "target": "secrets",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/control-plane"],
+      "options": {
+        "jestConfig": "apps/control-plane/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "secrets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "seki secrets generate -p=control-plane",
+        "cwd": "."
+      }
+    }
+  },
+  "tags": ["REQUIRED:GOLDEN"]
+}

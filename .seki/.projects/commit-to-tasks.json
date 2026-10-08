@@ -1,0 +1,40 @@
+{
+  "name": "commit-to-tasks",
+  "description": "Receive via queue message the information from a commit and split into the table of truth which defines the pipe of events that we need to run for the pipeline",
+  "settings": {
+    "topics": [
+      {
+        "name": "gl.seki.commits.created.v1",
+        "onReceiveMessagesHandler": "OnCommitReceivedHandler",
+        "provider": "Kafka"
+      }
+    ],
+    "stages": {
+      "staging": {
+        "replicas": 1
+      },
+      "production": {
+        "replicas": 2,
+        "resources": {
+          "cpu": 300,
+          "memory": 256,
+          "storage": 3
+        }
+      }
+    }
+  },
+  "$schema": "https://api.cencosudx.xyz/seki/statics/proxy/Cencosud-xlabs/seki-project-templates/main/subscriber/schema.json",
+  "group_folder": "apps",
+  "path": "commit-to-tasks",
+  "kind": "subscriber",
+  "definition": {
+    "name": "Subscriber",
+    "icons": {
+      "light": "icons/icon.svg",
+      "dark": "icons/icon.svg"
+    },
+    "url": "https://github.com/Cencosud-xlabs/seki-project-templates.git"
+  },
+  "alias": "Commit to Tasks",
+  "order": 2
+}

@@ -1,0 +1,113 @@
+version: '2'
+name: seki-ci-core
+volumes:
+  db_data:
+    driver: local
+services:
+
+  # ----------------------------------------
+  # REDIS
+  redis:
+    container_name: redis
+    image: redis:7.0.5
+    ports:
+      - '6379:6379'
+
+  # ----------------------------------------
+  # POSTGRES SQL
+  postgreSQL:
+    container_name: postgreSQL
+    image: postgres
+    environment:
+      POSTGRES_DB: commits
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - 9010:80
+
+  # ----------------------------------------
+  # KAFKA
+  kafka:
+    container_name: kafka
+    image: docker.redpanda.com/vectorized/redpanda:v21.11.15
+    restart: always
+    command:
+      - redpanda
+      - start
+      - --smp
+      - '1'
+      - --reserve-memory
+      - 0M
+      - --overprovisioned
+      - --node-id
+      - '0'
+      - --kafka-addr
+      - PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+      - --advertise-kafka-addr
+      - PLAINTEXT://kafka:29092,OUTSIDE://kafka:9092
+      - --pandaproxy-addr
+      - PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+      - --advertise-pandaproxy-addr
+      - PLAINTEXT://kafka:28082,OUTSIDE://localhost:8082
+    ports:
+      - 8081:8081
+      - 8082:8082
+      - 9092:9092
+      - 28082:28082
+      - 29092:29092
+      
+  # ----------------------------------------
+  # Pipelinr
+  pipelinr:
+    container_name: pipelinr
+    image: kmilo8346/pipelinr:latest
+    ports:
+      - '9000:9000'
+    depends_on:
+      - kafka
+
+  # ----------------------------------------
+  # Commit to tasks
+  commit-to-tasks:
+    container_name: commit-to-tasks
+    image: kmilo8346/commit-to-tasks:latest
+    ports:
+      - '9001:9001'
+    depends_on:
+      - kafka
+      - postgreSQL
+
+  # ----------------------------------------
+  # Pending tasks dispatcher
+  pending-tasks-dispatcher:
+    container_name: pending-tasks-dispatcher
+    image: kmilo8346/pending-tasks-dispatcher:latest
+    ports:
+      - '9002:9002'
+    depends_on:
+      - pipelinr
+      - control-plane
+
+  # ----------------------------------------
+  # Control plane
+  control-plane:
+    container_name: control-plane
+    image: kmilo8346/control-plane:latest
+    ports:
+      - '9003:9003'
+    depends_on:
+      - redis
+      - pipelinr

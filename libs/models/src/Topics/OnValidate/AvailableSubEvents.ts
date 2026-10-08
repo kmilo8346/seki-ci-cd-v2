@@ -1,0 +1,1 @@
+export type AvailableSubEvents = "VA|WORKSPACE" | "VA|SECRETS" | "VA|NAMESPACE"
